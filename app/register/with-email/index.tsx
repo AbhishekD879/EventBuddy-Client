@@ -3,7 +3,7 @@ import { View, StyleSheet, Alert ,Text} from 'react-native';
 import { TextInput, Button } from 'react-native-paper';
 import SVGFallback from '../../../Utils/components/SVGFallback';
 import dimensionConstants from '../../../constantConfig';
-import RegisterSvg from './RegisterSvg';
+import RegisterSvg from '../../../components/RegisterComponents/with-email_Components/RegisterSvg';
 import { supabase } from '../../../suprabase.config';
 import useKeyboardStatus from '../../../Utils/hooks/useKeybordStatus';
 import withSafeAreaWrapper from '../../../Utils/decorators/withSafeAreaView';
@@ -55,7 +55,7 @@ const RegistrationView = () => {
   return (
     <>
     {!isKeywordActive && (
-      <SVGFallback>
+    <SVGFallback>
       <RegisterSvg width={dimensionConstants.welcomeImage.width} height={dimensionConstants.welcomeImage.height}/>
   </SVGFallback>
     )}

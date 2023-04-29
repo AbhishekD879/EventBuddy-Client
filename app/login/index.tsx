@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
-import { View, StyleSheet, Alert,Text } from 'react-native';
+import { View, StyleSheet, Alert,Text,KeyboardAvoidingView } from 'react-native';
 import { TextInput, Button } from 'react-native-paper';
-import RegisterSvg from '../register/with-email/RegisterSvg';
+import RegisterSvg from '../../components/RegisterComponents/with-email_Components/RegisterSvg';
 import SVGFallback from '../../Utils/components/SVGFallback';
 import dimensionConstants from '../../constantConfig';
 import { supabase } from '../../suprabase.config';
@@ -16,8 +16,8 @@ import { useLoading } from '../../Utils/components/LoadingContext';
 const Login = () => {
   const {withLoading} =useLoading()
   const isKeyboardActive = useKeyboardStatus()
-  const [email, setEmail] = useState('hemyluvu@brand-app.biz');
-  const [password, setPassword] = useState('hemyluvu');
+  const [email, setEmail] = useState('conop80228@meidecn.com');
+  const [password, setPassword] = useState('conop80228');
   const router=useRouter()
   const validateEmail = (email:string) => {
     const emailRegex = /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i;
@@ -42,7 +42,9 @@ const Login = () => {
     }))
     console.log(data)
     if(!error) router.push("/")
-    
+    if(error){
+      console.log(error)
+    }
   };
 
   return (
@@ -57,7 +59,7 @@ const Login = () => {
     (<SVGFallback>
         <RegisterSvg width={dimensionConstants.welcomeImage.width} height={dimensionConstants.welcomeImage.height}/>
     </SVGFallback>)}
-    <View style={styles.container}>
+    <KeyboardAvoidingView style={styles.container}>
       <TextInput
         label="Email"
         value={email}
@@ -82,7 +84,7 @@ const Login = () => {
       <Text>Don't have account Yet?</Text>
        <Text style={{color:"#407BFF",fontWeight:"700"}} onPress={()=>router.push("/register/with-email")}>Create A Account</Text>
       </View>
-    </View>
+    </KeyboardAvoidingView>
     <View style={styles.socialButtons}>
         <Button
           mode="outlined"

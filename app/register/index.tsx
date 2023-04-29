@@ -1,7 +1,5 @@
-import Wrapper from "./components/Wrapper"
-import dimensionConstants from "../../constantConfig"
-import WelcomeImage from "./components/WelcomeImage"
-import CustomButtons from "./components/CustomButtons"
+import WelcomeImage from "../../components/RegisterComponents/components/WelcomeImage"
+import CustomButtons from "../../components/RegisterComponents/components/CustomButtons"
 import { Text, StyleSheet } from 'react-native';
 import withSafeAreaWrapper from "../../Utils/decorators/withSafeAreaView";
 

@@ -35,7 +35,7 @@ const EventCard: React.FC<EventCardProps> = ({
   
   const styles = StyleSheet.create({
     container: {
-        width: wp(70),
+        width: wp(45),
         marginHorizontal: wp(2),
         backgroundColor: '#fff',
         borderRadius: wp(2),
@@ -50,7 +50,7 @@ const EventCard: React.FC<EventCardProps> = ({
     },
     coverImage: {
       width: '100%',
-      height: hp(20),
+      height: hp(15),
     },
     overlay: {
       position: 'absolute',
@@ -62,7 +62,7 @@ const EventCard: React.FC<EventCardProps> = ({
       padding: wp(2),
     },
     title: {
-      fontSize: responsiveFontSize(18),
+      fontSize: responsiveFontSize(14),
       fontWeight: 'bold',
       color: '#407BFF',
     },
@@ -81,4 +81,5 @@ const EventCard: React.FC<EventCardProps> = ({
   });
   
   export default EventCard;
+  export {EventCardProps}
   

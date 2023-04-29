@@ -1,5 +1,5 @@
 // components/LandingView.tsx
-import React, { useState } from 'react';
+import React, { useState} from 'react';
 import {
   View,
   Text,
@@ -9,7 +9,7 @@ import {
   TouchableOpacity,
   Modal,
 } from 'react-native';
-import EventCard from './component/EventCard';
+import EventCard , { EventCardProps } from '../components/LandingComponent/EventCard';
 import {
   heightPercentageToDP as hp,
   widthPercentageToDP as wp,
@@ -17,14 +17,18 @@ import {
 import rf from '../Utils/functions/responsiveFontSize';
 import withSafeAreaWrapper from '../Utils/decorators/withSafeAreaView';
 import ProtectedRoute from '../Utils/components/ProtectedRoute';
-import Sidebar from './component/Sidebar';
-
+import Sidebar from '../components/LandingComponent/Sidebar';
+import uuid from "react-native-uuid"
+import { Button } from 'react-native-paper';
+import { useRouter } from 'expo-router';
 // You can replace this with the actual user avatar URL
 const userAvatar = 'https://picsum.photos/' + 2;
 
 const LandingView = () => {
   // Replace this with actual fetched events
+  const router=useRouter()
   const [sidebarVisible, setSidebarVisible] = useState(false);
+  const categories:number[]= [1,2]
   const events = [
     {
       id: 1,
@@ -84,40 +88,18 @@ const LandingView = () => {
   return (
     <ProtectedRoute>
       <View style={styles.container}>
+       
         <View style={styles.header}>
           <Text style={styles.appName}>EventBuddy</Text>
           <TouchableOpacity onPress={() => setSidebarVisible(true)}>
             <Image source={{ uri: userAvatar }} style={styles.userAvatar} />
           </TouchableOpacity>
         </View>
+        <HighlightCarousel highlightedEvent={events}/>
         <ScrollView>
-          <View style={styles.highlightedEvent}>
-            {/* You can replace this with the actual highlighted global event data */}
-            <EventCard
-              eventTitle="Highlighted Event"
-              eventDescription="Highlighted Event Description"
-              eventCover="https://example.com/highlighted-event-cover.jpg"
-              currentContribution={1000}
-              goalAmount={2000}
-            />
-          </View>
-          <View style={styles.carouselContainer}>
-            <Text style={styles.categoryTitle}>Category 1</Text>
-            <ScrollView horizontal showsHorizontalScrollIndicator={false}>
-              {events.map(event => (
-                <EventCard
-                  key={event.id}
-                  eventTitle={event.eventTitle}
-                  eventDescription={event.eventDescription}
-                  eventCover={event.eventCover}
-                  currentContribution={event.currentContribution}
-                  goalAmount={event.goalAmount}
-                />
-              ))}
-            </ScrollView>
-          </View>
-          {/* Add more carousels for other categories */}
+        {categories.map((category, index) =><CategoryCarousel key={events[0].eventTitle+index+category} events={events}/>)}
         </ScrollView>
+        <Button onPress={()=>router.push("/event/create-event")}>To Create Event</Button>
       </View>
       <Modal animationType="slide" transparent={true} visible={sidebarVisible}>
         <TouchableOpacity style={styles.modalOverlay} onPress={closeSidebar} />
@@ -126,6 +108,44 @@ const LandingView = () => {
     </ProtectedRoute>
   );
 };
+
+const HighlightCarousel=({highlightedEvent}:{highlightedEvent:EventCardProps[]})=>(
+<ScrollView horizontal>
+  {highlightedEvent.map((highlightEvent)=>(
+  <View style={styles.highlightedEvent} key={highlightEvent.eventTitle+uuid.v4()}>
+    {/* You can replace this with the actual highlighted global event data */}
+    <EventCard
+      eventTitle="Highlighted Event"
+      eventDescription="Highlighted Event Description"
+      eventCover="https://example.com/highlighted-event-cover.jpg"
+      currentContribution={1000}
+      goalAmount={2000}
+    />
+  </View>
+  ))}
+
+  {/* Add more carousels for other categories */}
+</ScrollView>
+)
+
+
+const CategoryCarousel=({events})=>(
+<View style={styles.carouselContainer}>
+  <Text style={styles.categoryTitle}>Category 1</Text>
+  <ScrollView horizontal showsHorizontalScrollIndicator={false}>
+    {events.map(event => (
+      <EventCard
+        key={event.id}
+        eventTitle={event.eventTitle}
+        eventDescription={event.eventDescription}
+        eventCover={event.eventCover}
+        currentContribution={event.currentContribution}
+        goalAmount={event.goalAmount}
+      />
+    ))}
+  </ScrollView>
+</View>
+)
 
 const styles = StyleSheet.create({
   modalOverlay: {
@@ -141,19 +161,19 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
-    paddingHorizontal: wp(4),
+    paddingHorizontal: wp(3),
     paddingTop: hp(5),
-    paddingBottom: hp(2),
+    paddingBottom: hp(1),
     backgroundColor: '#407BFF',
   },
   appName: {
-    fontSize: rf(18),
+    fontSize: rf(16),
     fontWeight: 'bold',
     color: '#FFFFFF',
   },
   userAvatar: {
-    width: wp(10),
-    height: wp(10),
+    width: wp(9),
+    height: wp(9),
     borderRadius: wp(5),
   },
   highlightedEvent: {
@@ -164,7 +184,7 @@ const styles = StyleSheet.create({
     paddingTop: hp(2),
   },
   categoryTitle: {
-    fontSize: rf(18),
+    fontSize: rf(16),
     fontWeight: 'bold',
     color: '#407BFF',
     paddingHorizontal: wp(4),

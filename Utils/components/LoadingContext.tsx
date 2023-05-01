@@ -6,9 +6,7 @@ interface LoadingContextValue {
   withLoading: (action: () => Promise<any>) => Promise<any>;
 }
 
-const LoadingContext = createContext<LoadingContextValue | undefined>(
-  undefined
-);
+const LoadingContext = createContext<LoadingContextValue | undefined>(undefined);
 
 export const useLoading = () => {
   const context = useContext(LoadingContext);
@@ -22,9 +20,7 @@ interface LoadingProviderProps {
   children: React.ReactNode;
 }
 
-export const LoadingProvider: React.FC<LoadingProviderProps> = ({
-  children,
-}) => {
+export const LoadingProvider: React.FC<LoadingProviderProps> = ({ children }) => {
   const [loading, setLoading] = useState(false);
 
   const withLoading = async (action: () => Promise<any>) => {

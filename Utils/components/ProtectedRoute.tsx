@@ -1,19 +1,16 @@
-import React, { useEffect, useState} from 'react';
+import React, { useEffect, useState } from 'react';
 import { View, ActivityIndicator } from 'react-native';
 import { supabase as supabaseClient } from './../../suprabase.config'; // Import your Supabase client instance
 import { useRouter } from 'expo-router';
 
-const ProtectedRoute = ({ children, navigation=useRouter() }) => {
-
-  
-
+const ProtectedRoute = ({ children, navigation = useRouter() }) => {
   const [isLoading, setIsLoading] = useState(true);
   const [isAuthenticated, setIsAuthenticated] = useState(false);
 
   useEffect(() => {
     const checkAuthentication = async () => {
       const { data, error } = await supabaseClient.auth.getSession();
-      console.log(data)
+      console.table(data);
       if (data.session) {
         setIsAuthenticated(true);
       } else if (error) {

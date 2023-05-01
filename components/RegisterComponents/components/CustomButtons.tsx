@@ -23,8 +23,7 @@ const CustomButtons = () => {
         mode="contained"
         style={styles.emailButton}
         labelStyle={styles.signInButtonText}
-        onPress={() => router.push('/login')}
-      >
+        onPress={() => router.push('/login')}>
         Sign in with Email
       </Button>
       <View style={{ flex: gapSize }} />
@@ -35,8 +34,7 @@ const CustomButtons = () => {
           labelStyle={styles.buttonText}
           icon={() => <Icon name="google" size={24} color="#407BFF" />}
           onPress={handleGoogleLogin}
-          textColor="#407BFF"
-        >
+          textColor="#407BFF">
           Google
         </Button>
         <Button
@@ -45,8 +43,7 @@ const CustomButtons = () => {
           labelStyle={styles.buttonText}
           icon={() => <Icon name="whatsapp" size={24} color="#407BFF" />}
           onPress={() => console.log('Sign in with Whatsapp')}
-          textColor="#407BFF"
-        >
+          textColor="#407BFF">
           WhatsApp
         </Button>
       </View>

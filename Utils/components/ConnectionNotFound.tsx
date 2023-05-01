@@ -8,19 +8,19 @@ import ConnectionErrorSvg from './ConnectionErrorSVG';
 const ConnectionNotFound = () => {
   return (
     <>
-    {/* <SVGFallback>
+      {/* <SVGFallback>
       <ConnectionErrorSvg />
     </SVGFallback> */}
-    <View style={styles.container}>
-      <Text style={styles.text}>Connection Not Found</Text>
-    </View>
+      <View style={styles.container}>
+        <Text style={styles.text}>Connection Not Found</Text>
+      </View>
     </>
   );
 };
 
 const styles = StyleSheet.create({
   container: {
-    flex:1,
+    flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
   },

@@ -15,6 +15,8 @@ import SVGFallback from '../../../Utils/components/SVGFallback';
 import EventCreationLanding from '../../../components/EventComponents/create-event_Components/EventCreationLanding';
 import dimensionConstants from '../../../constantConfig';
 import useKeyboardStatus from '../../../Utils/hooks/useKeybordStatus';
+import CustomStepIndicator from '../../../Utils/components/CustomStepIndicator';
+import ImagePickerComponent from '../../../components/EventComponents/create-event_Components/ImagePickerComponent';
 
 // Your event schema interface
 interface EventSchema {
@@ -125,6 +127,7 @@ const CreateEventForm = () => {
           />
         </SVGFallback>
       )}
+      <CustomStepIndicator step={step} totalSteps={3} />
       <KeyboardAvoidingView keyboardVerticalOffset={2}>
         {step === 1 && (
           <>
@@ -165,30 +168,25 @@ const CreateEventForm = () => {
             <TextInput
               label="Goal Amount"
               value={state.goal_amount.toString()}
-              onChangeText={value => setField('goal_amount', parseFloat(value))}
+              onChangeText={value => setField('goal_amount', parseFloat(value)?parseFloat(value):0)}
               style={styles.input}
               mode="outlined"
               keyboardType="numeric"
             />
             <View
-              style={{
-                display: 'flex',
-                flexDirection: 'row',
-                justifyContent: 'center',
-                width: '100%',
-              }}
+              style={styles.combinedButton}
             >
               <Button
                 mode="contained"
                 onPress={() => setStep(1)}
-                style={styles.button}
+                style={styles.eachCombinedButton}
               >
                 Back
               </Button>
               <Button
                 mode="contained"
-                onPress={handleStep2Sumbit}
-                style={styles.button}
+                onPress={()=> setStep(3)}
+                style={styles.eachCombinedButton}
               >
                 Next
               </Button>
@@ -198,21 +196,15 @@ const CreateEventForm = () => {
 
         {step === 3 && (
           <>
-            <TextInput
-              label="Event Cover URL"
-              value={state.event_cover}
-              onChangeText={value => setField('event_cover', value)}
-              style={styles.input}
-              mode="outlined"
-            />
-            <Button
-              mode="contained"
-              onPress={handleSubmit}
-              style={styles.button}
-            >
-              Submit
-            </Button>
-          </>
+          <ImagePickerComponent />
+          <Button
+            mode="contained"
+            onPress={handleSubmit}
+            style={styles.button}
+          >
+            Submit
+          </Button>
+        </>
         )}
       </KeyboardAvoidingView>
     </View>
@@ -235,6 +227,17 @@ const styles = StyleSheet.create({
     marginBottom: hp(2),
     width: '100%',
   },
+  combinedButton: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+  },
+  eachCombinedButton: {
+    borderColor: '#407BFF',
+    borderWidth: 1,
+    flex: 1,
+    marginLeft: wp(2),
+    backgroundColor: '#407BFF'
+  }
 });
 
 export default withSafeAreaWrapper(CreateEventForm);

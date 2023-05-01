@@ -1,7 +1,10 @@
 // components/Sidebar.tsx
 import React from 'react';
 import { View, TouchableOpacity, Text, StyleSheet } from 'react-native';
-import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-native-responsive-screen';
+import {
+  widthPercentageToDP as wp,
+  heightPercentageToDP as hp,
+} from 'react-native-responsive-screen';
 import responsiveFontSize from '../../Utils/functions/responsiveFontSize';
 import { supabase } from '../../suprabase.config';
 import { useRouter } from 'expo-router';
@@ -11,12 +14,13 @@ interface SidebarProps {
 }
 
 const Sidebar: React.FC<SidebarProps> = ({ onClose }) => {
-  const {withLoading}= useLoading()
-  const router = useRouter()  
-  const handleLogout = async() => {
+  const { withLoading } = useLoading();
+  const router = useRouter();
+  const handleLogout = async () => {
     // Add your logout logic here
-   withLoading(()=>supabase.auth.signOut())
-   router.push("/login")
+    withLoading(() => supabase.auth.signOut());
+    router.push('/login');
+    onClose();
   };
 
   return (

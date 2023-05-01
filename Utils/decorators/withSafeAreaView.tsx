@@ -17,7 +17,11 @@ function withSafeArea<P extends object>(Component: React.ComponentType<P>) {
 
 function withSafeAreaWrapper<P extends object>(Component: React.ComponentType<P>) {
   const SafeComponent = withSafeArea(Component);
-  return (props: P) => <LoadingProvider><SafeComponent {...props} /></LoadingProvider>;
+  return (props: P) => (
+    <LoadingProvider>
+      <SafeComponent {...props} />
+    </LoadingProvider>
+  );
 }
 
 export default withSafeAreaWrapper;
